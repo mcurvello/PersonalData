@@ -4,12 +4,13 @@ using PersonalData.Services;
 
 namespace PersonalData.Controllers;
 
+[ApiVersion("1.0")]
 [ApiController]
-[Route("[controller]")]
+[Route("api/v{version:apiVersion}/[controller]")]
 public class PersonController : ControllerBase
 {
     private readonly ILogger<PersonController> _logger;
-    private IPersonService _personService;
+    private readonly IPersonService _personService;
 
     public PersonController(ILogger<PersonController> logger, IPersonService personService)
     {
