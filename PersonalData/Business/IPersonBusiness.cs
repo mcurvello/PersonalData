@@ -1,8 +1,8 @@
 ﻿using PersonalData.Model;
 
-namespace PersonalData.Services
+namespace PersonalData.Business
 {
-	public interface IPersonService
+	public interface IPersonBusiness
 	{
 		Person Create(Person person);
 		Person FindById(long id);

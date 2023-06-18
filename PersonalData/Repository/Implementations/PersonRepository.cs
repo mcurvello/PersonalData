@@ -1,13 +1,13 @@
 ﻿using PersonalData.Model;
 using PersonalData.Model.Context;
 
-namespace PersonalData.Services.Implementations
+namespace PersonalData.Repository.Implementations
 {
-	public class PersonService : IPersonService
+	public class PersonRepository : IPersonRepository
 	{
         private MySQLContext _context;
 
-        public PersonService(MySQLContext context)
+        public PersonRepository(MySQLContext context)
 		{
             _context = context;
 		}
@@ -78,7 +78,7 @@ namespace PersonalData.Services.Implementations
             }
         }
 
-        private bool Exists(long id)
+        public bool Exists(long id)
         {
             return _context.People.Any(p => p.Id.Equals(id));
         }

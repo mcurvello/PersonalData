@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PersonalData.Model.Context;
-using PersonalData.Services;
-using PersonalData.Services.Implementations;
+using PersonalData.Business;
+using PersonalData.Business.Implementations;
+using PersonalData.Repository;
+using PersonalData.Repository.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +34,8 @@ builder.Services.AddVersionedApiExplorer(setup =>
 });
 
 // Dependency injection
-builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<IPersonBusiness, PersonBusiness>();
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
