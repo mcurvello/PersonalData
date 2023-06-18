@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace PersonalData.Model.Context
 {
@@ -14,6 +13,7 @@ namespace PersonalData.Model.Context
         }
 
 		public DbSet<Person> People { get; set; }
+        public DbSet<Book> Books { get; set; }
     }
 }
 

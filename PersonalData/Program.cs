@@ -41,8 +41,11 @@ builder.Services.AddVersionedApiExplorer(setup =>
 });
 
 // Dependency injection
-builder.Services.AddScoped<IPersonBusiness, PersonBusiness>();
-builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+builder.Services
+    .AddScoped<IPersonBusiness, PersonBusiness>()
+    .AddScoped<IPersonRepository, PersonRepository>()
+    .AddScoped<IBookBusiness, BookBusiness>()
+    .AddScoped<IBookRepository, BookRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
