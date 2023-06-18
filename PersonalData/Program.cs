@@ -1,4 +1,7 @@
-﻿using PersonalData.Services;
+﻿using Microsoft.EntityFrameworkCore;
+using MySqlConnector;
+using PersonalData.Model.Context;
+using PersonalData.Services;
 using PersonalData.Services.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+var connection = builder.Configuration.GetConnectionString("Default");
+builder.Services.AddDbContext<MySQLContext>(options =>
+{
+    options.UseMySql(connection, ServerVersion.AutoDetect(connection));
+});
 
 // Dependendy injection
 builder.Services.AddScoped<IPersonService, PersonService>();
