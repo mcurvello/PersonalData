@@ -5,8 +5,15 @@ using PersonalData.Business;
 using PersonalData.Business.Implementations;
 using PersonalData.Repository;
 using PersonalData.Repository.Implementations;
+using Serilog;
+using EvolveDb;
+using MySql.Data.MySqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateLogger();
 
 // Add services to the container.
 
@@ -48,6 +55,26 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    MigrateDatabase(connection);
+}
+
+void MigrateDatabase(string connection)
+{
+    try
+    {
+        var evolveConnection = new MySqlConnection(connection);
+        var evolve = new Evolve(evolveConnection, msg => Log.Information(msg))
+        {
+            Locations = new List<string> { "db/migrations", "db/dataset" },
+            IsEraseDisabled = true
+        };
+        evolve.Migrate();
+    }
+    catch (Exception ex)
+    {
+        Log.Error("Database migration failed", ex);
+        throw;
+    }
 }
 
 app.UseAuthorization();
