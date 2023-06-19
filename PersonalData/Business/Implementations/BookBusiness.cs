@@ -5,9 +5,9 @@ namespace PersonalData.Business.Implementations
 {
 	public class BookBusiness : IBookBusiness
 	{
-        private readonly IBookRepository _repository;
+        private readonly IRepository<Book> _repository;
 
-        public BookBusiness(IBookRepository repository)
+        public BookBusiness(IRepository<Book> repository)
 		{
             _repository = repository;
 		}

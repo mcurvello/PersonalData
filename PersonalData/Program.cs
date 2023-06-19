@@ -4,10 +4,10 @@ using PersonalData.Model.Context;
 using PersonalData.Business;
 using PersonalData.Business.Implementations;
 using PersonalData.Repository;
-using PersonalData.Repository.Implementations;
 using Serilog;
 using EvolveDb;
 using MySql.Data.MySqlClient;
+using PersonalData.Repository.Generic;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,9 +43,8 @@ builder.Services.AddVersionedApiExplorer(setup =>
 // Dependency injection
 builder.Services
     .AddScoped<IPersonBusiness, PersonBusiness>()
-    .AddScoped<IPersonRepository, PersonRepository>()
     .AddScoped<IBookBusiness, BookBusiness>()
-    .AddScoped<IBookRepository, BookRepository>();
+    .AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

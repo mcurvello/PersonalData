@@ -5,9 +5,9 @@ namespace PersonalData.Business.Implementations
 {
 	public class PersonBusiness : IPersonBusiness
 	{
-        private readonly IPersonRepository _repository;
+        private readonly IRepository<Person> _repository;
 
-        public PersonBusiness(IPersonRepository repository)
+        public PersonBusiness(IRepository<Person> repository)
 		{
             _repository = repository;
 		}
