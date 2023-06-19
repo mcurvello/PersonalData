@@ -26,6 +26,11 @@
     <None Remove="db\dataset\" />
     <None Remove="Model\Base\" />
     <None Remove="Repository\Generic\" />
+    <None Remove="Data\" />
+    <None Remove="Data\VO\" />
+    <None Remove="Data\Converter\" />
+    <None Remove="Data\Converter\Contract\" />
+    <None Remove="Data\Converter\Implementations\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
@@ -36,5 +41,10 @@
     <Folder Include="db\dataset\" />
     <Folder Include="Model\Base\" />
     <Folder Include="Repository\Generic\" />
+    <Folder Include="Data\" />
+    <Folder Include="Data\VO\" />
+    <Folder Include="Data\Converter\" />
+    <Folder Include="Data\Converter\Contract\" />
+    <Folder Include="Data\Converter\Implementations\" />
   </ItemGroup>
 </Project>
