@@ -20,6 +20,12 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 // Add services to the container.
+builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
+{
+    builder.AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+}));
 
 builder.Services.AddControllers();
 
@@ -116,8 +122,13 @@ void MigrateDatabase(string connection)
         throw;
     }
 }
+app.UseHttpsRedirection();
+
+app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseCors();
 
 app.MapControllers();
 app.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
