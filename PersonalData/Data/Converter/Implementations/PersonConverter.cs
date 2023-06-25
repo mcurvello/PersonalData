@@ -1,5 +1,4 @@
-﻿using System;
-using PersonalData.Data.Converter.Contract;
+﻿using PersonalData.Data.Converter.Contract;
 using PersonalData.Data.VO;
 using PersonalData.Model;
 
