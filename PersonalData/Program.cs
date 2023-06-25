@@ -10,6 +10,8 @@ using MySql.Data.MySqlClient;
 using PersonalData.Repository.Generic;
 using PersonalData.Hypermedia.Filters;
 using PersonalData.Hypermedia.Enricher;
+using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Rewrite;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,7 +66,21 @@ builder.Services
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1",
+        new OpenApiInfo
+        {
+            Title = "REST API's From 0 to Azure with ASP.NET Core 5 and Docker",
+            Version = "v1",
+            Description = "API RESTful developed in course 'REST API's From 0 to Azure with ASP.NET Core 5 and Docker'",
+            Contact = new OpenApiContact
+            {
+                Name = "Marcio Curvello",
+                Url = new Uri("https://github.com/mcurvello")
+            }
+        });
+});
 
 var app = builder.Build();
 
@@ -72,7 +88,13 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "REST API's From 0 to Azure with ASP.NET Core 5 and Docker");
+    });
+    var option = new RewriteOptions();
+    option.AddRedirect("^$", "swagger");
+    app.UseRewriter(option);
     MigrateDatabase(connection);
 }
 
