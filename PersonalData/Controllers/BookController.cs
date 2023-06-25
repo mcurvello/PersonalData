@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PersonalData.Model;
 using PersonalData.Business;
 using PersonalData.Data.VO;
+using PersonalData.Hypermedia.Filters;
 
 namespace PersonalData.Controllers;
 
@@ -20,12 +20,14 @@ public class BookController : ControllerBase
     }
 
     [HttpGet]
+    [TypeFilter(typeof(HyperMediaFilter))]
     public IActionResult Get()
     {
         return Ok(_bookBusiness.FindAll());
     }
 
     [HttpGet("{id}")]
+    [TypeFilter(typeof(HyperMediaFilter))]
     public IActionResult Get(long id)
     {
         var book = _bookBusiness.FindById(id);
@@ -35,6 +37,7 @@ public class BookController : ControllerBase
     }
 
     [HttpPost]
+    [TypeFilter(typeof(HyperMediaFilter))]
     public IActionResult Post([FromBody] BookVO book)
     {
         if (book == null) return BadRequest();
@@ -42,6 +45,7 @@ public class BookController : ControllerBase
     }
 
     [HttpPut]
+    [TypeFilter(typeof(HyperMediaFilter))]
     public IActionResult Put([FromBody] BookVO book)
     {
         if (book == null) return BadRequest();

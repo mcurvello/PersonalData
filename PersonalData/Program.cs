@@ -8,6 +8,8 @@ using Serilog;
 using EvolveDb;
 using MySql.Data.MySqlClient;
 using PersonalData.Repository.Generic;
+using PersonalData.Hypermedia.Filters;
+using PersonalData.Hypermedia.Enricher;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +35,12 @@ builder.Services.AddMvc(options =>
     options.FormatterMappings.SetMediaTypeMappingForFormat("json", "application/json");
 })
     .AddXmlSerializerFormatters();
+
+var filterOptions = new HyperMediaFilterOptions();
+filterOptions.ContentResponseEnricherList.Add(new PersonEnricher());
+filterOptions.ContentResponseEnricherList.Add(new BookEnricher());
+
+builder.Services.AddSingleton(filterOptions);
 
 // Versioning API
 builder.Services.AddApiVersioning(setup =>
@@ -90,6 +98,7 @@ void MigrateDatabase(string connection)
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
 
 app.Run();
 

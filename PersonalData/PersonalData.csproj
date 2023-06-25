@@ -32,6 +32,11 @@
     <None Remove="Data\Converter\" />
     <None Remove="Data\Converter\Contract\" />
     <None Remove="Data\Converter\Implementations\" />
+    <None Remove="Hypermedia\" />
+    <None Remove="Hypermedia\Abstract\" />
+    <None Remove="Hypermedia\Constants\" />
+    <None Remove="Hypermedia\Filters\" />
+    <None Remove="Hypermedia\Enricher\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
@@ -47,5 +52,10 @@
     <Folder Include="Data\Converter\" />
     <Folder Include="Data\Converter\Contract\" />
     <Folder Include="Data\Converter\Implementations\" />
+    <Folder Include="Hypermedia\" />
+    <Folder Include="Hypermedia\Abstract\" />
+    <Folder Include="Hypermedia\Constants\" />
+    <Folder Include="Hypermedia\Filters\" />
+    <Folder Include="Hypermedia\Enricher\" />
   </ItemGroup>
 </Project>
