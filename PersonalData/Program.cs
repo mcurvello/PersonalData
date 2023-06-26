@@ -12,6 +12,14 @@ using PersonalData.Hypermedia.Filters;
 using PersonalData.Hypermedia.Enricher;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Rewrite;
+using PersonalData.Services;
+using PersonalData.Services.Implementations;
+using PersonalData.Configurations;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +28,39 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 // Add services to the container.
+
+var tokenConfigurations = new TokenConfiguration();
+new ConfigureFromConfigurationOptions<TokenConfiguration>(builder.Configuration.GetSection("TokenConfigurations"))
+    .Configure(tokenConfigurations);
+
+builder.Services.AddSingleton(tokenConfigurations);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = tokenConfigurations.Issuer,
+            ValidAudience = tokenConfigurations.Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenConfigurations.Secret))
+        };
+    });
+
+builder.Services.AddAuthorization(auth =>
+{
+    auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+        .RequireAuthenticatedUser().Build());
+});
+
 builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
 {
     builder.AllowAnyOrigin()
@@ -68,6 +109,9 @@ builder.Services.AddVersionedApiExplorer(setup =>
 builder.Services
     .AddScoped<IPersonBusiness, PersonBusiness>()
     .AddScoped<IBookBusiness, BookBusiness>()
+    .AddScoped<ILoginBusiness, LoginBusiness>()
+    .AddTransient<ITokenService, TokenService>()
+    .AddScoped<IUserRepository, UserRepository>()
     .AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

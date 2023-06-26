@@ -16,6 +16,7 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
     <PackageReference Include="MySql.Data" Version="8.0.33" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Xml" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.8" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +38,8 @@
     <None Remove="Hypermedia\Constants\" />
     <None Remove="Hypermedia\Filters\" />
     <None Remove="Hypermedia\Enricher\" />
+    <None Remove="Configurations\" />
+    <None Remove="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
@@ -57,5 +60,8 @@
     <Folder Include="Hypermedia\Constants\" />
     <Folder Include="Hypermedia\Filters\" />
     <Folder Include="Hypermedia\Enricher\" />
+    <Folder Include="Configurations\" />
+    <Folder Include="Services\" />
+    <Folder Include="Services\Implementations\" />
   </ItemGroup>
 </Project>

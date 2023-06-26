@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PersonalData.Business;
 using PersonalData.Data.VO;
 using PersonalData.Hypermedia.Filters;
@@ -7,6 +8,7 @@ namespace PersonalData.Controllers;
 
 [ApiVersion("1.0")]
 [ApiController]
+[Authorize("Bearer")]
 [Route("api/v{version:apiVersion}/[controller]")]
 public class PersonController : ControllerBase
 {
