@@ -86,6 +86,11 @@ namespace PersonalData.Business.Implementations
                 refreshToken
                 );
         }
+
+        public bool RevokeToken(string username)
+        {
+            return _repository.RevokeToken(username);
+        }
     }
 }
 

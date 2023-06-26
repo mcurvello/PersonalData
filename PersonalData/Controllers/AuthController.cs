@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonalData.Business;
 using PersonalData.Data.VO;
@@ -42,6 +43,19 @@ namespace PersonalData.Controllers
             if (token == null) return BadRequest("Invalid client request");
 
             return Ok(token);
+        }
+
+        [HttpGet]
+        [Route("revoke")]
+        [Authorize("Bearer")]
+        public IActionResult Revoke()
+        {
+            var username = User.Identity.Name;
+            var result = _loginBusiness.RevokeToken(username);
+
+            if (!result) return BadRequest("Invalid client request");
+
+            return NoContent();
         }
     }
 }

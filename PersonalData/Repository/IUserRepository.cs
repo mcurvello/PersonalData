@@ -10,5 +10,7 @@ namespace PersonalData.Repository
 		User ValidateCredentials(string username);
 
 		User RefreshUserInfo(User user);
+
+		bool RevokeToken(string username);
     }
 }
