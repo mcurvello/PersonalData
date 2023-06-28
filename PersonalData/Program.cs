@@ -112,6 +112,7 @@ builder.Services
     .AddScoped<ILoginBusiness, LoginBusiness>()
     .AddTransient<ITokenService, TokenService>()
     .AddScoped<IUserRepository, UserRepository>()
+    .AddScoped<IPersonRepository, PersonRepository>()
     .AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

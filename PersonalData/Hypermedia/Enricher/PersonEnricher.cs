@@ -42,6 +42,13 @@ namespace PersonalData.Hypermedia.Enricher
             });
             content.Links.Add(new HyperMediaLink()
             {
+                Action = HttpActionVerb.PATCH,
+                Href = link,
+                Rel = RelationType.self,
+                Type = "int"
+            });
+            content.Links.Add(new HyperMediaLink()
+            {
                 Action = HttpActionVerb.DELETE,
                 Href = link,
                 Rel = RelationType.self,
