@@ -1,4 +1,5 @@
 ﻿using PersonalData.Data.VO;
+using PersonalData.Hypermedia.Utils;
 
 namespace PersonalData.Business
 {
@@ -11,5 +12,7 @@ namespace PersonalData.Business
 		PersonVO Update(PersonVO person);
 		PersonVO Disable(long id);
 		void Delete(long id);
+		PagedSearchVO<PersonVO> FindWithPagedSearch(string name, string sortDirection, int pageSize, int page);
+
 	}
 }

@@ -40,6 +40,7 @@
     <None Remove="Hypermedia\Enricher\" />
     <None Remove="Configurations\" />
     <None Remove="Services\" />
+    <None Remove="Hypermedia\Utils\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
@@ -63,5 +64,6 @@
     <Folder Include="Configurations\" />
     <Folder Include="Services\" />
     <Folder Include="Services\Implementations\" />
+    <Folder Include="Hypermedia\Utils\" />
   </ItemGroup>
 </Project>
